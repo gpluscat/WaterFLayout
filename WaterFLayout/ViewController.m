@@ -1,0 +1,71 @@
+//
+//  ViewController.m
+//  WaterFLayout
+//
+//  Created by qingqing on 15/4/27.
+//  Copyright (c) 2015年 qingqing. All rights reserved.
+//
+
+#import "ViewController.h"
+
+#import "WaterFLayout.h"
+
+@interface ViewController ()<UICollectionViewDataSource,WaterFLayoutDelegate>
+@property (weak, nonatomic) IBOutlet UICollectionView *waterFlow;
+@property(nonatomic, strong) NSMutableArray *lst;
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.title = @"WaterFLayout";
+    
+    self.lst = [NSMutableArray array];
+    for(int i = 0; i < 35; i++)
+    {
+        [self.lst addObject:[NSString stringWithFormat:@"%d", i + 1]];
+    }
+    
+    WaterFLayout *flowLayout = [[WaterFLayout alloc] init];
+    flowLayout.sectionInset = UIEdgeInsetsMake(9, 9, 9, 9);
+    self.waterFlow.collectionViewLayout = flowLayout;
+    self.waterFlow.dataSource = self;
+    self.waterFlow.delegate = self;
+    [self.waterFlow registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CellIdentifier"];
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.lst.count;
+}
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"CellIdentifier";
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    int r = arc4random() % 255;
+    int g = arc4random() % 255;
+    int b = arc4random() % 255;
+    cell.backgroundColor = [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
+    cell.layer.masksToBounds = YES;
+    cell.layer.cornerRadius = 6.0f;
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    int height = 50 + (arc4random() % 220);
+    return CGSizeMake(CGRectGetMidX(self.view.bounds), height);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+@end
