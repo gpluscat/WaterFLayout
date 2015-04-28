@@ -63,6 +63,11 @@
     return CGSizeMake(CGRectGetMidX(self.view.bounds), height);
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@">>>>>>>>>>didSelectItemAtIndexPath %@", indexPath);
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
