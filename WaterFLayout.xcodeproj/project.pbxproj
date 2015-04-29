@@ -418,6 +418,7 @@
 				B272F2031AEE445A00E9D9F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B272F2041AEE445A00E9D9F4 /* Build configuration list for PBXNativeTarget "WaterFLayoutTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +427,7 @@
 				B272F2061AEE445A00E9D9F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
