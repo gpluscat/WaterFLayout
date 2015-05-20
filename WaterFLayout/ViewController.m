@@ -30,12 +30,29 @@
         [self.lst addObject:[NSString stringWithFormat:@"%d", i + 1]];
     }
     
+    
+    
+    
     WaterFLayout *flowLayout = [[WaterFLayout alloc] init];
     flowLayout.sectionInset = UIEdgeInsetsMake(9, 9, 9, 9);
     self.waterFlow.collectionViewLayout = flowLayout;
     self.waterFlow.dataSource = self;
     self.waterFlow.delegate = self;
     [self.waterFlow registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CellIdentifier"];
+    
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    refresh.tintColor = [UIColor redColor];
+    [self.waterFlow addSubview:refresh];
+    [refresh addTarget:self action:@selector(pulledToRefresh:) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)pulledToRefresh:(UIRefreshControl *)refreshControl
+{
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [refreshControl endRefreshing];
+    });
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
